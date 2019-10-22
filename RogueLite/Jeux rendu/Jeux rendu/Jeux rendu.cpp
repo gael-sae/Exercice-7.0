@@ -34,6 +34,8 @@ void createMap()
 	char wallSymbol ='°';
 	char playerSymbol = '¦';
 	char Door = 'X';
+	char potion = '§';
+	char piège = '^';
 
 	for (int i = 0; i < map.size(); i++) {
 		for (int j = 0; j < map.size(); j++) {
@@ -74,6 +76,8 @@ void createMap()
 		map[i][lastElement] = wallSymbol;
 
 	}
+	map[7][8] = piège;
+	map[6][8] = potion;
 	map[18][18] = Door;
 
 
@@ -83,40 +87,59 @@ int main()
 {
 	int playerHp = 5;
 	char wallSymbol = '°';
+	char potion = '§';
+	char Door = 'X';
+	char piège = '^';
+	char playerSymbol = '¦';
+
 	std::string command;
 	std::cout << "map informations : \n";
 	std::cout << " = ground\n";
-	std::cout << "€ = wall\n";
-	std::cout << "* = player\n";
+	std::cout << "° = wall\n";
+	std::cout << "@ = player\n";
 	
 	createMap();
 
 	mapUpdate();
 
+	std::cout << "player hp = " << playerHp << "\n";
 	std::cout << "which direction to go ?\n";
 	std::cin >> command;
 
 	while (!gameWin)
 	{
 		system("cls");
-		std::cout << "player hp = " << playerHp << "\n";
+		std::cout << "map informations : \n";
+		std::cout << " = ground\n";
+		std::cout << "° = wall\n";
+		std::cout << "¦ = player\n";
 
-		if (command == "right")
+		 if (command == "right")
 		{
 			std::cout << "you go one case to the right\n";
 			map[playerPosY][playerPosX] = 0;
 			playerPosX++;
-			if (map[playerPosY][playerPosX] == 4)
+			if (map[playerPosY][playerPosX] == potion)
 			{
 				std::cout << "potion found, hp + 5\n";
 				playerHp = playerHp + 5;
 				map[playerPosY][playerPosX] = 1;
 				
 			}
+			if (map[playerPosY][playerPosX] == piège)
+			{
+				std::cout << "this is a trap, hp - 5\n";
+				playerHp = playerHp - 5;
+
+			}
 			else if (map[playerPosY][playerPosX] == wallSymbol)
 			{
 				playerPosX--;
 				std::cout << "not possible to go\n";
+			}
+			else if (map[playerPosY][playerPosX] == Door) {
+				std::cout << "you win !\n";
+				gameWin = true;
 			}
 			map[playerPosY][playerPosX] = 1;
 			mapUpdate();
@@ -126,18 +149,24 @@ int main()
 			std::cout << "you go one case to the left\n";
 			map[playerPosY][playerPosX] = 0;
 			playerPosX--;
-			if (map[playerPosY][playerPosX] == 4)
+			if (map[playerPosY][playerPosX] == potion)
 			{
 				std::cout << "potion found, hp + 5\n";
 				playerHp = playerHp + 5;
 				map[playerPosY][playerPosX] = 1;
 			
 			}
+			if (map[playerPosY][playerPosX] == piège)
+			{
+				std::cout << "this is a trap, hp - 5\n";
+				playerHp = playerHp - 5;
+			}
 			else if (map[playerPosY][playerPosX] == wallSymbol)
 			{
 				playerPosX++;
 				std::cout << "not possible to go\n";
 			}
+			
 			map[playerPosY][playerPosX] = 1;
 			mapUpdate();
 		}
@@ -146,12 +175,17 @@ int main()
 			std::cout << "you go one case up\n";
 			map[playerPosY][playerPosX] = 0;
 			playerPosY--;
-			if (map[playerPosY][playerPosX] == 4)
+			if (map[playerPosY][playerPosX] == potion)
 			{
 				std::cout << "potion found, hp + 5\n";
 				playerHp = playerHp + 5;
 				map[playerPosY][playerPosX] = 1;
 				
+			}
+			if (map[playerPosY][playerPosX] == piège)
+			{
+				std::cout << "this is a trap, hp - 5\n";
+				playerHp = playerHp - 5;
 			}
 			else if (map[playerPosY][playerPosX] == wallSymbol)
 			{
@@ -160,23 +194,33 @@ int main()
 			}
 			map[playerPosY][playerPosX] = 1;
 			mapUpdate();
+
 		}
 		else if (command == "down")
 		{
 			std::cout << "you go one case down\n";
 			map[playerPosY][playerPosX] = 0;
 			playerPosY++;
-			if (map[playerPosY][playerPosX] == 4)
+			if (map[playerPosY][playerPosX] == potion)
 			{
 				std::cout << "potion found, hp + 5\n";
 				playerHp = playerHp + 5;
 				map[playerPosY][playerPosX] = 1;
 				
 			}
+			if (map[playerPosY][playerPosX] == piège)
+			{
+				std::cout << "this is a trap, hp - 5\n";
+				playerHp = playerHp - 5;
+			}
 			else if (map[playerPosY][playerPosX] == wallSymbol)
 			{
 				playerPosY--;
 				std::cout << "not possible to go\n";
+			}
+			else if (map[playerPosY][playerPosX] == Door) {
+				std::cout << "you win !\n";
+				gameWin = true;
 			}
 			map[playerPosY][playerPosX] = 1;
 			mapUpdate();
@@ -186,7 +230,7 @@ int main()
 			std::cout << "please give a funtional direction (right / left / up / down)\n";
 			mapUpdate();
 		}
-
+		std::cout << "player hp = " << playerHp << "\n";
 		std::cout << "which direction to go ?\n";
 
 		std::cin >> command;
