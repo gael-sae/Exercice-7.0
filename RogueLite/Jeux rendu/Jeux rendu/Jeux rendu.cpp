@@ -2,6 +2,7 @@
 #include <vector>
 #include <fstream>
 #include <string>
+#include <time.h>
 
 
 bool gameWin = false;
@@ -25,6 +26,7 @@ void mapUpdate()
 
 void createMap()
 {
+	srand(time(0));
 	char randNum = (rand() % 6) + 1;
 	char randNum2 = (rand() % 7) + 7;
 
