@@ -1,0 +1,3 @@
+﻿  Jeux rendu.cpp
+D:\Formative SAE\Exercices programmation basique\Exercice 7\RogueLite\Jeux rendu\Jeux rendu\Jeux rendu.cpp(67,34): warning C4267: 'initialisation' : conversion de 'size_t' en 'int', perte possible de données
+  Jeux rendu.vcxproj -> D:\Formative SAE\Exercices programmation basique\Exercice 7\RogueLite\Jeux rendu\x64\Debug\Jeux rendu.exe
